@@ -1,0 +1,673 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Cloud Decision Document — Lagos Logistics Startup</title>
+  <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,600;1,400&family=DM+Mono:wght@400;500&family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg:        #f5f2eb;
+      --surface:   #ffffff;
+      --border:    #ddd8ce;
+      --accent:    #1a472a;
+      --accent-lt: #e8f0eb;
+      --ink:       #1c1c1c;
+      --ink-mid:   #444;
+      --ink-light: #777;
+      --mono:      'DM Mono', monospace;
+      --serif:     'Lora', Georgia, serif;
+      --sans:      'Inter', system-ui, sans-serif;
+      --radius:    8px;
+      --max:       780px;
+    }
+
+    body {
+      background: var(--bg);
+      color: var(--ink);
+      font-family: var(--sans);
+      font-size: 16px;
+      line-height: 1.75;
+      padding: 2rem 1.25rem 6rem;
+    }
+
+    /* ── Layout ── */
+    .container { max-width: var(--max); margin: 0 auto; }
+
+    /* ── Header ── */
+    header {
+      border-top: 4px solid var(--accent);
+      padding-top: 2.5rem;
+      margin-bottom: 3rem;
+    }
+    header .label {
+      font-family: var(--mono);
+      font-size: 0.72rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 0.75rem;
+    }
+    header h1 {
+      font-family: var(--serif);
+      font-size: clamp(1.8rem, 4vw, 2.6rem);
+      font-weight: 600;
+      line-height: 1.2;
+      color: var(--ink);
+      margin-bottom: 1.25rem;
+    }
+    header p {
+      font-size: 1.05rem;
+      color: var(--ink-mid);
+      max-width: 620px;
+    }
+    .walk {
+      font-family: var(--serif);
+      font-style: italic;
+      color: var(--accent);
+      margin-top: 1.25rem;
+      font-size: 1.05rem;
+    }
+
+    /* ── Section headings ── */
+    h2 {
+      font-family: var(--serif);
+      font-size: 1.45rem;
+      font-weight: 600;
+      color: var(--ink);
+      margin: 3rem 0 1rem;
+      padding-bottom: 0.4rem;
+      border-bottom: 1.5px solid var(--border);
+    }
+    h3 {
+      font-family: var(--sans);
+      font-size: 0.8rem;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin: 2rem 0 0.5rem;
+    }
+    h4 {
+      font-family: var(--sans);
+      font-size: 1rem;
+      font-weight: 600;
+      color: var(--ink);
+      margin-bottom: 0.35rem;
+    }
+
+    /* ── Body text ── */
+    p { margin-bottom: 1rem; color: var(--ink-mid); }
+    p:last-child { margin-bottom: 0; }
+
+    /* ── Workload intro list ── */
+    .workload-list {
+      list-style: none;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.6rem;
+      margin: 1rem 0 2rem;
+    }
+    .workload-list li {
+      background: var(--accent-lt);
+      color: var(--accent);
+      font-family: var(--mono);
+      font-size: 0.78rem;
+      padding: 0.35rem 0.85rem;
+      border-radius: 100px;
+      border: 1px solid #c2d6c8;
+    }
+
+    /* ── Option cards ── */
+    .options-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 1rem;
+      margin: 1rem 0 2.5rem;
+    }
+    .card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 1.25rem 1.25rem 1.4rem;
+    }
+    .card .badge {
+      display: inline-block;
+      font-family: var(--mono);
+      font-size: 0.68rem;
+      font-weight: 500;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      padding: 0.2rem 0.6rem;
+      border-radius: 4px;
+      margin-bottom: 0.6rem;
+    }
+    .badge-iaas  { background: #fde8e8; color: #9b2c2c; }
+    .badge-paas  { background: #e8f0eb; color: #1a472a; }
+    .badge-saas  { background: #e8eef8; color: #1e3a6e; }
+
+    .card h4 { font-size: 0.95rem; margin-bottom: 0.5rem; }
+    .card p  { font-size: 0.88rem; line-height: 1.65; }
+
+    /* ── Comparison table ── */
+    .table-wrap {
+      overflow-x: auto;
+      margin: 1rem 0 0.75rem;
+      border-radius: var(--radius);
+      border: 1px solid var(--border);
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.9rem;
+      background: var(--surface);
+    }
+    thead th {
+      background: var(--accent);
+      color: #fff;
+      font-family: var(--mono);
+      font-size: 0.75rem;
+      letter-spacing: 0.07em;
+      text-transform: uppercase;
+      padding: 0.75rem 1rem;
+      text-align: left;
+    }
+    tbody tr:nth-child(even) { background: #faf9f6; }
+    tbody td {
+      padding: 0.7rem 1rem;
+      border-bottom: 1px solid var(--border);
+      color: var(--ink-mid);
+      vertical-align: top;
+    }
+    tbody tr:last-child td { border-bottom: none; }
+    tbody td:first-child {
+      font-weight: 600;
+      color: var(--ink);
+      white-space: nowrap;
+    }
+    .table-note {
+      font-size: 0.82rem;
+      color: var(--ink-light);
+      font-style: italic;
+      margin-top: 0.5rem;
+      margin-bottom: 2.5rem;
+    }
+
+    /* ── Assumptions box ── */
+    .assumptions {
+      background: var(--accent-lt);
+      border-left: 3px solid var(--accent);
+      border-radius: 0 var(--radius) var(--radius) 0;
+      padding: 1.1rem 1.4rem;
+      margin: 1.5rem 0 2rem;
+    }
+    .assumptions p {
+      font-size: 0.9rem;
+      margin-bottom: 0;
+      color: var(--ink);
+    }
+    .assumptions strong {
+      display: block;
+      font-family: var(--mono);
+      font-size: 0.72rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 0.4rem;
+    }
+
+    /* ── Recommendation blocks ── */
+    .recommendation {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 1.5rem 1.5rem 1.6rem;
+      margin-bottom: 1.5rem;
+    }
+    .recommendation .rec-label {
+      font-family: var(--mono);
+      font-size: 0.7rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--ink-light);
+      margin-bottom: 0.25rem;
+    }
+    .recommendation h3 {
+      font-family: var(--serif);
+      font-size: 1.15rem;
+      font-weight: 600;
+      text-transform: none;
+      letter-spacing: 0;
+      color: var(--ink);
+      margin: 0 0 0.25rem;
+    }
+    .recommendation .verdict {
+      display: inline-block;
+      font-family: var(--mono);
+      font-size: 0.75rem;
+      background: var(--accent);
+      color: #fff;
+      padding: 0.2rem 0.7rem;
+      border-radius: 4px;
+      margin-bottom: 1rem;
+    }
+    .recommendation p { font-size: 0.93rem; }
+
+    /* ── Closing note ── */
+    .closing {
+      background: var(--ink);
+      color: #e8e8e8;
+      border-radius: var(--radius);
+      padding: 1.75rem 1.75rem 1.85rem;
+      margin-top: 2.5rem;
+    }
+    .closing h2 {
+      font-family: var(--serif);
+      color: #fff;
+      border-bottom-color: #444;
+      font-size: 1.2rem;
+      margin-top: 0;
+    }
+    .closing p { color: #ccc; font-size: 0.93rem; }
+
+    /* ── Footer ── */
+    footer {
+      margin-top: 3.5rem;
+      padding-top: 1.25rem;
+      border-top: 1px solid var(--border);
+      font-family: var(--mono);
+      font-size: 0.72rem;
+      color: var(--ink-light);
+      letter-spacing: 0.05em;
+    }
+
+    @media (max-width: 540px) {
+      .options-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+<div class="container">
+
+  <!-- ══ HEADER ══ -->
+  <header>
+    <p class="label">Cloud Decision Document &mdash; Reference Architecture</p>
+    <h1>Cloud Infrastructure Decisions for a Lagos Logistics Startup</h1>
+    <p>
+      Running a business today requires expert hands and a clear direction for the organisation.
+      Every business is different, and because of that, the technology powering those businesses
+      needs to be tailored to its specific needs.
+    </p>
+    <p>
+      This document maps out the cloud infrastructure needs of a 30-person logistics startup based
+      in Lagos, Nigeria. It evaluates three cloud service models; IaaS, PaaS, and SaaS, across
+      three workloads, and makes informed recommendations based on a defined set of assumptions.
+    </p>
+    <p class="walk">Walk with me.</p>
+  </header>
+
+  <!-- ══ WORKLOADS INTRO ══ -->
+  <section aria-labelledby="workloads-heading">
+    <h2 id="workloads-heading">The Three Workloads</h2>
+    <p>The company has three workloads under evaluation:</p>
+    <ul class="workload-list">
+      <li>Customer-facing website</li>
+      <li>Internal HR system</li>
+      <li>Data analytics pipeline</li>
+    </ul>
+    <p>
+      For each workload, three cloud deployment options are presented (one per service model)
+      using real products to ground the comparison in practical terms.
+    </p>
+  </section>
+
+  <!-- ══ WORKLOAD 1: WEBSITE ══ -->
+  <section aria-labelledby="website-heading">
+    <h2 id="website-heading">Customer-Facing Website</h2>
+
+    <div class="options-grid">
+      <article class="card">
+        <span class="badge badge-iaas">IaaS</span>
+        <h4>AWS EC2</h4>
+        <p>
+          The team would spin up a virtual machine, deploy the application, and configure the
+          environment to match their needs. The provider handles the physical servers and network
+          infrastructure. The team is responsible for the operating system, security patches,
+          runtime, application code, scaling, and deployment pipeline. The main advantage is full
+          ownership of the system and data, with low upfront costs. The tradeoff is the time and
+          cost involved in building and maintaining this infrastructure. Without a dedicated
+          DevOps engineer, this becomes a significant burden for a small team.
+        </p>
+      </article>
+
+      <article class="card">
+        <span class="badge badge-paas">PaaS</span>
+        <h4>Render</h4>
+        <p>
+          The team would push their application code to the platform and let it handle the rest.
+          Render takes care of security, automatic scaling, and server configuration. The provider
+          manages the operating system, runtime, and infrastructure. The main advantage is fast
+          deployment with minimal infrastructure knowledge required. The tradeoff is moderate
+          vendor lock-in and a higher cost per unit compared to IaaS, which starts to matter when
+          traffic grows consistently high.
+        </p>
+      </article>
+
+      <article class="card">
+        <span class="badge badge-saas">SaaS</span>
+        <h4>Webflow</h4>
+        <p>
+          The team can build and launch a website quickly without needing deep technical skills.
+          The platform handles all backend setup, configuration, and hosting, down to the
+          infrastructure level. The team only manages content, design choices, and integrations
+          within what the platform allows. The tradeoff is that custom backend logic — such as
+          booking systems or real-time shipment tracking — cannot be built inside Webflow. This
+          limits how far the business can grow its web features without eventually moving to a
+          different solution.
+        </p>
+      </article>
+    </div>
+  </section>
+
+  <!-- ══ WORKLOAD 2: HR ══ -->
+  <section aria-labelledby="hr-heading">
+    <h2 id="hr-heading">Internal HR System</h2>
+
+    <div class="options-grid">
+      <article class="card">
+        <span class="badge badge-iaas">IaaS</span>
+        <h4>AWS EC2</h4>
+        <p>
+          The team would spin up a virtual machine and take full ownership of the environment.
+          This includes configuring the database, managing backups, and handling security. The
+          team can deploy their own HR codebase or use an open-source option like Odoo HR. The
+          main advantage is complete data sovereignty — employee data never leaves infrastructure
+          the company controls, which is important given the sensitivity of HR records. The
+          tradeoff is that this setup demands significant technical effort. For a team without a
+          dedicated DevOps engineer, the ongoing maintenance cost in time and skill is a real
+          concern.
+        </p>
+      </article>
+
+      <article class="card">
+        <span class="badge badge-paas">PaaS</span>
+        <h4>Odoo.sh</h4>
+        <p>
+          The team gets a managed platform built specifically for deploying and customising Odoo
+          applications. It includes features like staging servers, custom deployment routes,
+          automated backups, and a guaranteed 99.9% uptime backed by a support team. The provider
+          handles the operating system, runtime, and infrastructure. The main advantage is a quick
+          setup with low maintenance overhead for certified apps. The tradeoff is moderate vendor
+          lock-in. Because the data lives on a third-party platform, teams with strict data
+          residency requirements need to verify whether Odoo.sh meets those obligations before
+          committing.
+        </p>
+      </article>
+
+      <article class="card">
+        <span class="badge badge-saas">SaaS</span>
+        <h4>Odoo Online</h4>
+        <p>
+          The team creates an account, configures it for the company, and starts using it right
+          away. The platform handles hosting, maintenance, support, backups, and upgrades
+          automatically. Apps are built, maintained, and updated by the Odoo team in the
+          background. The tradeoff is very limited room for customisation and full dependence on
+          Odoo for service delivery. For a 30-person company with standard HR needs, this
+          simplicity is often worth those limitations. However, teams must carefully consider data
+          residency rules and vendor lock-in risk before choosing this option, particularly given
+          Nigeria's Data Protection Act requirements around how employee data is stored and
+          processed.
+        </p>
+      </article>
+    </div>
+  </section>
+
+  <!-- ══ WORKLOAD 3: ANALYTICS ══ -->
+  <section aria-labelledby="analytics-heading">
+    <h2 id="analytics-heading">Data Analytics Pipeline</h2>
+
+    <div class="options-grid">
+      <article class="card">
+        <span class="badge badge-iaas">IaaS</span>
+        <h4>AWS EC2 (full self-managed stack)</h4>
+        <p>
+          The team would spin up a virtual machine and build the entire pipeline from scratch. A
+          Python script would handle data extraction on a schedule. A custom transformation layer
+          using a library like pandas would reshape the data. A self-managed PostgreSQL instance
+          would store the processed data. A self-hosted Grafana instance would handle
+          visualisation. Every component runs on infrastructure the team fully controls. The main
+          advantage is maximum flexibility at the lowest raw compute cost. The tradeoff is a heavy
+          operational burden. This setup realistically requires a dedicated cloud data engineer,
+          which adds significant hiring and salary cost for a 30-person startup.
+        </p>
+      </article>
+
+      <article class="card">
+        <span class="badge badge-paas">PaaS</span>
+        <h4>AWS Glue + dbt Cloud + Redshift + Metabase Cloud</h4>
+        <p>
+          Using a combination of managed services, the team gets a handled pipeline at each stage.
+          AWS Glue acts as the entry point, crawling data sources like S3 or RDS to handle
+          extraction. dbt Cloud handles transformation, where the team writes SQL logic and the
+          platform runs it on a schedule. Amazon Redshift handles loading as a managed data
+          warehouse that scales automatically on a pay-per-query basis. Metabase Cloud handles
+          visualisation by connecting directly to the warehouse. The provider manages the
+          underlying servers and operating system across all four tools. The tradeoff is moderate
+          vendor lock-in across multiple platforms, and teams must confirm that each provider
+          meets their data residency obligations.
+        </p>
+      </article>
+
+      <article class="card">
+        <span class="badge badge-saas">SaaS</span>
+        <h4>Google Looker Studio</h4>
+        <p>
+          The team connects existing data sources and builds dashboards without managing any
+          infrastructure. The platform handles data ingestion, storage, and visualisation in one
+          place. The main advantage is speed and simplicity. The significant limitation is that
+          the tool only supports basic filtering and aggregation — it cannot run custom business
+          logic. For example, if the logistics company needs to calculate a custom delivery
+          efficiency score or apply proprietary pricing rules, Looker Studio cannot support that.
+          This option works best when analytics needs are straightforward enough to fit within the
+          platform's built-in capabilities.
+        </p>
+      </article>
+    </div>
+  </section>
+
+  <!-- ══ COMPARISON TABLE ══ -->
+  <section aria-labelledby="table-heading">
+    <h2 id="table-heading">Comparison Table</h2>
+    <p>The table below summarises the key trade-off dimensions across all three service models.</p>
+
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th>Category</th>
+            <th>IaaS</th>
+            <th>PaaS</th>
+            <th>SaaS</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Cost model</td>
+            <td>Low — pay as you go for raw compute</td>
+            <td>Medium — pay per usage with a platform premium</td>
+            <td>Fixed — subscription per seat or tier</td>
+          </tr>
+          <tr>
+            <td>Time to deploy</td>
+            <td>High — significant setup required</td>
+            <td>Medium — platform handles infrastructure setup</td>
+            <td>Low — ready to use immediately</td>
+          </tr>
+          <tr>
+            <td>OS patches</td>
+            <td>Hands-on — team manages all patching</td>
+            <td>Hands-off — provider handles OS updates</td>
+            <td>Hands-off — no OS visibility at all</td>
+          </tr>
+          <tr>
+            <td>Scaling</td>
+            <td>Manual — team configures auto-scaling rules</td>
+            <td>Automatic — platform scales with demand</td>
+            <td>Automatic — included in the service</td>
+          </tr>
+          <tr>
+            <td>Vendor lock-in risk</td>
+            <td>Low — standard VMs are portable</td>
+            <td>Medium — platform conventions vary</td>
+            <td>High — data and workflows wrap around one product</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="table-note">
+      Note: PaaS is worth considering when the goal is to offload infrastructure security while
+      using pre-configured, audited services — such as AWS Glue or Redshift — to meet standard
+      compliance frameworks like GDPR or NDPA more efficiently.
+    </p>
+  </section>
+
+  <!-- ══ RECOMMENDATIONS ══ -->
+  <section aria-labelledby="rec-heading">
+    <h2 id="rec-heading">Recommendations</h2>
+
+    <div class="assumptions">
+      <strong>Assumptions</strong>
+      <p>
+        These recommendations are made under the following assumptions: the company is a
+        30-person logistics startup based in Lagos, Nigeria; the team has no dedicated DevOps
+        engineer; the operating environment is cost-conscious; and each workload requires
+        custom application logic but does not need infrastructure-level control. All
+        recommendations are subject to revision if these conditions change.
+      </p>
+    </div>
+
+    <!-- Rec 1 -->
+    <article class="recommendation">
+      <p class="rec-label">Workload 1</p>
+      <h3>Customer-Facing Website</h3>
+      <span class="verdict">Recommended: PaaS via Render</span>
+      <p>
+        The customer-facing website is the primary interface between the logistics startup and
+        its clients. It requires reliable uptime, the ability to handle unpredictable traffic
+        spikes during peak booking periods, and custom backend logic for features like shipment
+        tracking and booking management. These functional requirements rule out a pure content
+        platform like Webflow, which cannot support application-level logic. At the same time,
+        the team has no dedicated DevOps engineer, meaning any solution that requires ongoing
+        server management would consume engineering time that is better spent building product
+        features. The need for custom logic and limited infrastructure capacity defines the core
+        constraint this recommendation must address.
+      </p>
+      <p>
+        PaaS via Render directly satisfies both constraints. The platform manages the operating
+        system, runtime, SSL termination, and automatic scaling, removing the infrastructure
+        burden from the team entirely. The team retains full ownership of the application code,
+        which means the custom booking and tracking logic the business needs can be built and
+        deployed without architectural compromise. The main tradeoff is moderate vendor lock-in
+        around Render's deployment conventions. This is acceptable at this stage because the
+        application logic itself remains portable to another platform if the need arises. This
+        recommendation would be revisited if sustained traffic growth made PaaS per-unit costs
+        significantly higher than the labour cost of managing IaaS infrastructure directly, but
+        that threshold is unlikely for a company at this size.
+      </p>
+    </article>
+
+    <!-- Rec 2 -->
+    <article class="recommendation">
+      <p class="rec-label">Workload 2</p>
+      <h3>Internal HR System</h3>
+      <span class="verdict">Recommended: PaaS via Odoo.sh</span>
+      <p>
+        The internal HR system handles sensitive employee data including salaries, contracts, and
+        personal records. This data sensitivity, combined with Nigeria's Data Protection Act
+        obligations around how personal data is stored and processed, makes data residency a hard
+        constraint rather than a preference. A fully managed SaaS option like Odoo Online would
+        offer the fastest setup and lowest maintenance burden, but it places employee data
+        entirely on third-party infrastructure with no guarantee of local data residency. IaaS
+        via EC2 would provide complete data sovereignty but would require the team to manage the
+        operating system, database, backups, and security patches without a dedicated DevOps
+        engineer. Neither extreme fits the company's situation cleanly. The workload needs a
+        middle path that provides meaningful control over data without imposing unsustainable
+        operational overhead.
+      </p>
+      <p>
+        PaaS via Odoo.sh provides that balance. The platform manages the underlying
+        infrastructure — including automated backups, 99.9% uptime guarantees, and OS-level
+        maintenance — while the team retains control over the application layer and where data is
+        hosted. Because Odoo.sh allows deployment configuration and supports custom routes and
+        staging environments, the team can make informed decisions about data residency in a way
+        that pure SaaS does not allow. The tradeoff is moderate vendor lock-in within the Odoo
+        ecosystem. This recommendation assumes the team can confirm that Odoo.sh's hosting
+        options satisfy NDPA requirements. If that confirmation cannot be obtained, the
+        recommendation shifts to IaaS via EC2 with an open-source HRMS, accepting the
+        operational cost in exchange for unambiguous data control.
+      </p>
+    </article>
+
+    <!-- Rec 3 -->
+    <article class="recommendation">
+      <p class="rec-label">Workload 3</p>
+      <h3>Data Analytics Pipeline</h3>
+      <span class="verdict">Recommended: PaaS via AWS Glue + dbt Cloud + Redshift + Metabase Cloud</span>
+      <p>
+        The analytics pipeline processes operational data from across the logistics business to
+        produce insights for internal decision-making. Its traffic pattern is batch-like, running
+        on a schedule rather than constantly, and the data volume is expected to grow as the
+        company scales. Most importantly, the pipeline requires custom transformation logic. A
+        logistics operation needs to calculate metrics specific to its business — such as delivery
+        efficiency rates, route performance, and customer activity patterns — that cannot be
+        expressed through the basic filtering and aggregation tools that SaaS analytics platforms
+        offer. A pure SaaS option like Google Looker Studio is therefore insufficient at the data
+        transformation stage, regardless of its convenience at the visualisation layer. IaaS via
+        EC2 could technically support the full pipeline but would require a dedicated data
+        engineer to build and maintain four separate system components, which is not a realistic
+        investment for a company at this stage.
+      </p>
+      <p>
+        The PaaS stack of AWS Glue, dbt Cloud, Amazon Redshift, and Metabase Cloud addresses the
+        requirements at each stage of the pipeline without requiring the team to manage any
+        underlying infrastructure. AWS Glue handles scheduled extraction from data sources like
+        S3 and RDS in a serverless environment. dbt Cloud runs the custom transformation logic
+        the team writes in SQL, on a schedule, without a server to provision or maintain. Amazon
+        Redshift provides a managed data warehouse that scales automatically and charges per
+        query, keeping costs proportional to actual usage. Metabase Cloud connects to the
+        warehouse and allows the team to build and share dashboards without additional
+        infrastructure. The primary tradeoff is vendor lock-in across multiple AWS and
+        third-party services, and the team must confirm that data residency across these
+        platforms meets NDPA obligations. This recommendation would be reconsidered if the data
+        volume grew large enough that the cost of managed services exceeded the cost of building
+        and running a self-managed pipeline on IaaS.
+      </p>
+    </article>
+  </section>
+
+  <!-- ══ CLOSING OBSERVATION ══ -->
+  <aside class="closing" aria-label="Closing observation">
+    <h2>A Note on the Pattern</h2>
+    <p>
+      Across all three workloads, PaaS emerges as the recommended model. This is not
+      coincidental. The company's profile — a small team without dedicated infrastructure
+      capacity, operating workloads that require custom logic but not infrastructure-level
+      control — consistently points toward managed platforms as the most cost-effective balance
+      between operational simplicity and technical flexibility.
+    </p>
+    <p>
+      As the company grows and infrastructure costs become a larger proportion of its budget,
+      individual workloads may warrant revisiting in favour of IaaS. The recommendations in this
+      document are a starting point grounded in current constraints, not a permanent prescription.
+    </p>
+  </aside>
+
+  <footer>
+    <p>Cloud Decision Document &mdash; Open-source reference &mdash; Lagos Logistics Startup (Fictional)</p>
+  </footer>
+
+</div>
+</body>
+</html>
