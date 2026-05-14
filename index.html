@@ -5,7 +5,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Cloud Decision Document — Lagos Logistics Startup</title>
   <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,600;1,400&family=DM+Mono:wght@400;500&family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
-  <style>
+  <style rel="stylesheet" href="style.css" />
+  /* <!-- <style> */
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
     :root {
@@ -286,7 +287,7 @@
     @media (max-width: 540px) {
       .options-grid { grid-template-columns: 1fr; }
     }
-  </style>
+  </style> -->
 </head>
 <body>
 <div class="container">
@@ -362,8 +363,8 @@
           The team can build and launch a website quickly without needing deep technical skills.
           The platform handles all backend setup, configuration, and hosting, down to the
           infrastructure level. The team only manages content, design choices, and integrations
-          within what the platform allows. The tradeoff is that custom backend logic — such as
-          booking systems or real-time shipment tracking — cannot be built inside Webflow. This
+          within what the platform allows. The tradeoff is that custom backend logic, such as
+          booking systems or real-time shipment tracking, cannot be built inside Webflow. This
           limits how far the business can grow its web features without eventually moving to a
           different solution.
         </p>
@@ -383,11 +384,10 @@
           The team would spin up a virtual machine and take full ownership of the environment.
           This includes configuring the database, managing backups, and handling security. The
           team can deploy their own HR codebase or use an open-source option like Odoo HR. The
-          main advantage is complete data sovereignty — employee data never leaves infrastructure
-          the company controls, which is important given the sensitivity of HR records. The
-          tradeoff is that this setup demands significant technical effort. For a team without a
-          dedicated DevOps engineer, the ongoing maintenance cost in time and skill is a real
-          concern.
+          main advantage is employee data never leaves the company's infrastructure, which is
+          important given the sensitivity of HR records. The tradeoff is that this setup demands
+          significant technical effort. For a team without a dedicated DevOps engineer, the ongoing
+          maintenance cost in time and skill is a real concern.
         </p>
       </article>
 
@@ -467,7 +467,7 @@
           The team connects existing data sources and builds dashboards without managing any
           infrastructure. The platform handles data ingestion, storage, and visualisation in one
           place. The main advantage is speed and simplicity. The significant limitation is that
-          the tool only supports basic filtering and aggregation — it cannot run custom business
+          the tool only supports basic filtering and it cannot run custom business
           logic. For example, if the logistics company needs to calculate a custom delivery
           efficiency score or apply proprietary pricing rules, Looker Studio cannot support that.
           This option works best when analytics needs are straightforward enough to fit within the
@@ -495,40 +495,40 @@
         <tbody>
           <tr>
             <td>Cost model</td>
-            <td>Low — pay as you go for raw compute</td>
-            <td>Medium — pay per usage with a platform premium</td>
-            <td>Fixed — subscription per seat or tier</td>
+            <td>Low (pay as you go for raw compute)</td>
+            <td>Medium (pay per usage with a platform premium)</td>
+            <td>Fixed (subscription per seat or tier)</td>
           </tr>
           <tr>
             <td>Time to deploy</td>
-            <td>High — significant setup required</td>
-            <td>Medium — platform handles infrastructure setup</td>
-            <td>Low — ready to use immediately</td>
+            <td>High (significant setup required)</td>
+            <td>Medium (platform handles infrastructure setup)</td>
+            <td>Low (ready to use immediately)</td>
           </tr>
           <tr>
             <td>OS patches</td>
-            <td>Hands-on — team manages all patching</td>
-            <td>Hands-off — provider handles OS updates</td>
-            <td>Hands-off — no OS visibility at all</td>
+            <td>Hands-on (team manages all patching)</td>
+            <td>Hands-off (provider handles OS updates)</td>
+            <td>Hands-off (no OS visibility at all)</td>
           </tr>
           <tr>
             <td>Scaling</td>
-            <td>Manual — team configures auto-scaling rules</td>
-            <td>Automatic — platform scales with demand</td>
-            <td>Automatic — included in the service</td>
+            <td>Manual (team configures auto-scaling rules)</td>
+            <td>Automatic (platform scales with demand)</td>
+            <td>Automatic (included in the service)</td>
           </tr>
           <tr>
             <td>Vendor lock-in risk</td>
-            <td>Low — standard VMs are portable</td>
-            <td>Medium — platform conventions vary</td>
-            <td>High — data and workflows wrap around one product</td>
+            <td>Low (standard VMs are portable)</td>
+            <td>Medium (platform conventions vary)</td>
+            <td>High (data and workflows wrap around one product)</td>
           </tr>
         </tbody>
       </table>
     </div>
     <p class="table-note">
       Note: PaaS is worth considering when the goal is to offload infrastructure security while
-      using pre-configured, audited services — such as AWS Glue or Redshift — to meet standard
+      using pre-configured, audited services such as AWS Glue or Redshift to meet standard
       compliance frameworks like GDPR or NDPA more efficiently.
     </p>
   </section>
@@ -598,8 +598,8 @@
       </p>
       <p>
         PaaS via Odoo.sh provides that balance. The platform manages the underlying
-        infrastructure — including automated backups, 99.9% uptime guarantees, and OS-level
-        maintenance — while the team retains control over the application layer and where data is
+        infrastructure including automated backups, 99.9% uptime guarantees, and OS-level
+        maintenance, while the team retains control over the application layer and where data is
         hosted. Because Odoo.sh allows deployment configuration and supports custom routes and
         staging environments, the team can make informed decisions about data residency in a way
         that pure SaaS does not allow. The tradeoff is moderate vendor lock-in within the Odoo
@@ -620,8 +620,8 @@
         produce insights for internal decision-making. Its traffic pattern is batch-like, running
         on a schedule rather than constantly, and the data volume is expected to grow as the
         company scales. Most importantly, the pipeline requires custom transformation logic. A
-        logistics operation needs to calculate metrics specific to its business — such as delivery
-        efficiency rates, route performance, and customer activity patterns — that cannot be
+        logistics operation needs to calculate metrics specific to its business such as delivery
+        efficiency rates, route performance, and customer activity patterns that cannot be
         expressed through the basic filtering and aggregation tools that SaaS analytics platforms
         offer. A pure SaaS option like Google Looker Studio is therefore insufficient at the data
         transformation stage, regardless of its convenience at the visualisation layer. IaaS via
@@ -652,9 +652,9 @@
     <h2>A Note on the Pattern</h2>
     <p>
       Across all three workloads, PaaS emerges as the recommended model. This is not
-      coincidental. The company's profile — a small team without dedicated infrastructure
+      coincidental. The company's profile, a small team without dedicated infrastructure
       capacity, operating workloads that require custom logic but not infrastructure-level
-      control — consistently points toward managed platforms as the most cost-effective balance
+      control, consistently points toward managed platforms as the most cost-effective balance
       between operational simplicity and technical flexibility.
     </p>
     <p>

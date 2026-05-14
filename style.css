@@ -1,0 +1,320 @@
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+:root {
+  --bg: #f5f2eb;
+  --surface: #ffffff;
+  --border: #ddd8ce;
+  --accent: #1a472a;
+  --accent-lt: #e8f0eb;
+  --ink: #1c1c1c;
+  --ink-mid: #444;
+  --ink-light: #777;
+  --mono: "DM Mono", monospace;
+  --serif: "Lora", Georgia, serif;
+  --sans: "Inter", system-ui, sans-serif;
+  --radius: 8px;
+  --max: 780px;
+}
+
+body {
+  background: var(--bg);
+  color: var(--ink);
+  font-family: var(--sans);
+  font-size: 16px;
+  line-height: 1.75;
+  padding: 2rem 1.25rem 6rem;
+}
+
+/* ── Layout ── */
+.container {
+  max-width: var(--max);
+  margin: 0 auto;
+}
+
+/* ── Header ── */
+header {
+  border-top: 4px solid var(--accent);
+  padding-top: 2.5rem;
+  margin-bottom: 3rem;
+}
+header .label {
+  font-family: var(--mono);
+  font-size: 0.72rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin-bottom: 0.75rem;
+}
+header h1 {
+  font-family: var(--serif);
+  font-size: clamp(1.8rem, 4vw, 2.6rem);
+  font-weight: 600;
+  line-height: 1.2;
+  color: var(--ink);
+  margin-bottom: 1.25rem;
+}
+header p {
+  font-size: 1.05rem;
+  color: var(--ink-mid);
+  max-width: 620px;
+}
+.walk {
+  font-family: var(--serif);
+  font-style: italic;
+  color: var(--accent);
+  margin-top: 1.25rem;
+  font-size: 1.05rem;
+}
+
+/* ── Section headings ── */
+h2 {
+  font-family: var(--serif);
+  font-size: 1.45rem;
+  font-weight: 600;
+  color: var(--ink);
+  margin: 3rem 0 1rem;
+  padding-bottom: 0.4rem;
+  border-bottom: 1.5px solid var(--border);
+}
+h3 {
+  font-family: var(--sans);
+  font-size: 0.8rem;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin: 2rem 0 0.5rem;
+}
+h4 {
+  font-family: var(--sans);
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--ink);
+  margin-bottom: 0.35rem;
+}
+
+/* ── Body text ── */
+p {
+  margin-bottom: 1rem;
+  color: var(--ink-mid);
+}
+p:last-child {
+  margin-bottom: 0;
+}
+
+/* ── Workload intro list ── */
+.workload-list {
+  list-style: none;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.6rem;
+  margin: 1rem 0 2rem;
+}
+.workload-list li {
+  background: var(--accent-lt);
+  color: var(--accent);
+  font-family: var(--mono);
+  font-size: 0.78rem;
+  padding: 0.35rem 0.85rem;
+  border-radius: 100px;
+  border: 1px solid #c2d6c8;
+}
+
+/* ── Option cards ── */
+.options-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 1rem;
+  margin: 1rem 0 2.5rem;
+}
+.card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 1.25rem 1.25rem 1.4rem;
+}
+.card .badge {
+  display: inline-block;
+  font-family: var(--mono);
+  font-size: 0.68rem;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  padding: 0.2rem 0.6rem;
+  border-radius: 4px;
+  margin-bottom: 0.6rem;
+}
+.badge-iaas {
+  background: #fde8e8;
+  color: #9b2c2c;
+}
+.badge-paas {
+  background: #e8f0eb;
+  color: #1a472a;
+}
+.badge-saas {
+  background: #e8eef8;
+  color: #1e3a6e;
+}
+
+.card h4 {
+  font-size: 0.95rem;
+  margin-bottom: 0.5rem;
+}
+.card p {
+  font-size: 0.88rem;
+  line-height: 1.65;
+}
+
+/* ── Comparison table ── */
+.table-wrap {
+  overflow-x: auto;
+  margin: 1rem 0 0.75rem;
+  border-radius: var(--radius);
+  border: 1px solid var(--border);
+}
+table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.9rem;
+  background: var(--surface);
+}
+thead th {
+  background: var(--accent);
+  color: #fff;
+  font-family: var(--mono);
+  font-size: 0.75rem;
+  letter-spacing: 0.07em;
+  text-transform: uppercase;
+  padding: 0.75rem 1rem;
+  text-align: left;
+}
+tbody tr:nth-child(even) {
+  background: #faf9f6;
+}
+tbody td {
+  padding: 0.7rem 1rem;
+  border-bottom: 1px solid var(--border);
+  color: var(--ink-mid);
+  vertical-align: top;
+}
+tbody tr:last-child td {
+  border-bottom: none;
+}
+tbody td:first-child {
+  font-weight: 600;
+  color: var(--ink);
+  white-space: nowrap;
+}
+.table-note {
+  font-size: 0.82rem;
+  color: var(--ink-light);
+  font-style: italic;
+  margin-top: 0.5rem;
+  margin-bottom: 2.5rem;
+}
+
+/* ── Assumptions box ── */
+.assumptions {
+  background: var(--accent-lt);
+  border-left: 3px solid var(--accent);
+  border-radius: 0 var(--radius) var(--radius) 0;
+  padding: 1.1rem 1.4rem;
+  margin: 1.5rem 0 2rem;
+}
+.assumptions p {
+  font-size: 0.9rem;
+  margin-bottom: 0;
+  color: var(--ink);
+}
+.assumptions strong {
+  display: block;
+  font-family: var(--mono);
+  font-size: 0.72rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin-bottom: 0.4rem;
+}
+
+/* ── Recommendation blocks ── */
+.recommendation {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 1.5rem 1.5rem 1.6rem;
+  margin-bottom: 1.5rem;
+}
+.recommendation .rec-label {
+  font-family: var(--mono);
+  font-size: 0.7rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--ink-light);
+  margin-bottom: 0.25rem;
+}
+.recommendation h3 {
+  font-family: var(--serif);
+  font-size: 1.15rem;
+  font-weight: 600;
+  text-transform: none;
+  letter-spacing: 0;
+  color: var(--ink);
+  margin: 0 0 0.25rem;
+}
+.recommendation .verdict {
+  display: inline-block;
+  font-family: var(--mono);
+  font-size: 0.75rem;
+  background: var(--accent);
+  color: #fff;
+  padding: 0.2rem 0.7rem;
+  border-radius: 4px;
+  margin-bottom: 1rem;
+}
+.recommendation p {
+  font-size: 0.93rem;
+}
+
+/* ── Closing note ── */
+.closing {
+  background: var(--ink);
+  color: #e8e8e8;
+  border-radius: var(--radius);
+  padding: 1.75rem 1.75rem 1.85rem;
+  margin-top: 2.5rem;
+}
+.closing h2 {
+  font-family: var(--serif);
+  color: #fff;
+  border-bottom-color: #444;
+  font-size: 1.2rem;
+  margin-top: 0;
+}
+.closing p {
+  color: #ccc;
+  font-size: 0.93rem;
+}
+
+/* ── Footer ── */
+footer {
+  margin-top: 3.5rem;
+  padding-top: 1.25rem;
+  border-top: 1px solid var(--border);
+  font-family: var(--mono);
+  font-size: 0.72rem;
+  color: var(--ink-light);
+  letter-spacing: 0.05em;
+}
+
+@media (max-width: 540px) {
+  .options-grid {
+    grid-template-columns: 1fr;
+  }
+}
